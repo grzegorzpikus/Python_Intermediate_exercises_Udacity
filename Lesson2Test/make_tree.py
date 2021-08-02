@@ -1,4 +1,6 @@
-from Python_intermediate.Lesson2Test.parse_content import parse_content
+# from Python_intermediate.Lesson2Test.parse_content import parse_content
+
+from Lesson2Test.parse_content import parse_content
 
 text = open('contents')
 text2 = text.read().strip().replace(',', ' ')
@@ -16,9 +18,10 @@ for value in dict.values():
     numbers.append(value)
 
 
-def check_add(char : str, dict : dict, word : str) -> dict:
+def check_add(id : int, dict : dict, word : str) -> dict:
     new_dict : dict = {}
-    if word.index(char) == word.index(word[-1]):
+    char = word[id]
+    if id == len(word) - 1:
         if char in dict:
             y = dict[char]
             y['$' + word] = y.get('$' + word, numbers[words_list.index(word)])
@@ -36,8 +39,8 @@ def check_add(char : str, dict : dict, word : str) -> dict:
 
 for word in words_list:
     x : dict = tree
-    for i in word:
-        x = check_add(i, x, word)
+    for index in range(len(word)):
+        x = check_add(index, x, word)
 
 
 print(tree)

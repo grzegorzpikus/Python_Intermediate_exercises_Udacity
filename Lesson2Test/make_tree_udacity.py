@@ -1,4 +1,4 @@
-from Udacity.Training.Python_intermediate.Lesson2Test.parse_content import parse_content
+from Lesson2Test.parse_content import parse_content
 
 
 text = open('contents')
