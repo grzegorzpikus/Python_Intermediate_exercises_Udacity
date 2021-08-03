@@ -6,45 +6,48 @@ text = open('contents')
 text2 = text.read().strip().replace(',', ' ')
 dict = parse_content(text2)
 
+def make_tree(dict):
 
-tree : dict = {}
+    tree : dict = {}
 
-words_list = []
-for key in dict.keys():
-    words_list.append(key)
+    words_list = []
+    for key in dict.keys():
+        words_list.append(key)
 
-numbers = []
-for value in dict.values():
-    numbers.append(value)
+    numbers = []
+    for value in dict.values():
+        numbers.append(value)
 
 
-def check_add(id : int, dict : dict, word : str) -> dict:
-    new_dict : dict = {}
-    char = word[id]
-    if id == len(word) - 1:
-        if char in dict:
-            y = dict[char]
-            y['$' + word] = y.get('$' + word, numbers[words_list.index(word)])
-            return dict[char]
+    def check_add(id : int, dict : dict, word : str) -> dict:
+        new_dict : dict = {}
+        char = word[id]
+        if id == len(word) - 1:
+            if char in dict:
+                y = dict[char]
+                y['$' + word] = y.get('$' + word, numbers[words_list.index(word)])
+                return dict[char]
+            else:
+                new_dict['$' + word] = numbers[words_list.index(word)]
+                dict[char] = new_dict
+                return new_dict
         else:
-            new_dict['$' + word] = numbers[words_list.index(word)]
-            dict[char] = new_dict
-            return new_dict
-    else:
-        if char in dict:
-            return dict[char]
-        else:
-            dict[char] = new_dict
-            return new_dict
+            if char in dict:
+                return dict[char]
+            else:
+                dict[char] = new_dict
+                return new_dict
 
-for word in words_list:
-    x : dict = tree
-    for index in range(len(word)):
-        x = check_add(index, x, word)
+    for word in words_list:
+        x : dict = tree
+        for index in range(len(word)):
+            x = check_add(index, x, word)
 
+    return tree
 
-print(tree)
+# print(make_tree(dict))
 
+# print(tree)
 
 
 
